@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+
+    <title>Frontend Mentor | Advice generator app</title>
+    <style>
+      body {
+        background-color: #1f2632;
+        font-family: "Manrope", sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .advice-card {
+        background-color: #313a48;
+        width: 90%;
+        max-width: 550px;
+        padding: 50px;
+        border-radius: 15px;
+        text-align: center;
+        position: relative;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .advice-id {
+        color: #52ffa8;
+        font-size: 13px;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        margin-bottom: 24px;
+      }
+
+      .advice-text {
+        color: #cee3e9;
+        font-size: 28px;
+        font-weight: 800;
+        line-height: 1.4;
+        margin-bottom: 40px;
+      }
+
+      .divider {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 20px;
+      }
+
+      .line {
+        height: 1px;
+        background-color: #4f5d74;
+        flex-grow: 1;
+      }
+
+      .pause-icon {
+        display: flex;
+        gap: 6px;
+      }
+
+      .pause-icon span {
+        width: 6px;
+        height: 16px;
+        background-color: #cee3e9;
+        border-radius: 3px;
+      }
+
+      .dice-btn {
+        background-color: #52ffa8;
+        border: none;
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        bottom: -32px;
+        left: 295px;
+        transition: 0.3s ease;
+      }
+
+      .dice-btn:hover {
+        box-shadow: 0 0 50px #52ffa8;
+      }
+
+      @media (max-width: 500px) {
+        .advice-card {
+          padding: 40px 24px;
+        }
+        .advice-text {
+          font-size: 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card-container">
+      <div class="advice-card">
+        <h1 class="advice-id">Advice #</h1>
+        <p class="advice-text">
+          “It is easy to sit up and take notice, what's difficult is getting up
+          and taking action.”
+        </p>
+
+        <div class="divider">
+          <div class="line"></div>
+          <div class="pause-icon">
+            <span></span>
+            <span></span>
+          </div>
+          <div class="line"></div>
+        </div>
+
+        <button class="dice-btn">
+          <img src="images/icon-dice.svg" />
+        </button>
+      </div>
+    </div>
+
+    <script>
+      const URL = `https://api.adviceslip.com/advice`;
+      const btn = document.querySelector("button");
+      let advice = document.querySelector(".advice-text");
+
+      btn.addEventListener("click", async function () {
+        const promise = await fetch(URL);
+        const data = await promise.json();
+        console.log(data.slip.advice);
+        advice.innerText = data.slip.advice;
+      });
+    </script>
+  </body>
+</html>
